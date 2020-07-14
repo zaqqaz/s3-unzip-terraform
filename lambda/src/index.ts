@@ -9,7 +9,7 @@ const destPrefix = process.env.DEST_PREFIX;
 const destKey = process.env.DEST_KEY;
 const matchRegex = new RegExp(process.env.MATCH_REGEX!);
 
-const handler: S3Handler = async (event) => {
+export const handler: S3Handler = async (event) => {
     const srcBucket = event.Records[0].s3.bucket.name;
     const srcKey = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
     const srcParts = srcKey.split('/');
@@ -56,5 +56,3 @@ const handler: S3Handler = async (event) => {
         }).promise();
     }
 };
-
-export default handler;
