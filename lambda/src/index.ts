@@ -1,6 +1,8 @@
 import AdmZip from "adm-zip";
 import S3 from "aws-sdk/clients/s3";
 import { S3Handler } from "aws-lambda";
+import mime from "mime-types";
+
 const s3 = new S3();
 
 const deleteSource = !!process.env.DELETE_SOURCE;
@@ -44,7 +46,8 @@ export const handler: S3Handler = async (event) => {
         await s3.putObject({
             Bucket: destBucket,
             Key: destPrefix + key,
-            Body: file.getData()
+            Body: file.getData(),
+            ContentType: mime.lookup(file.name) || "",
         }).promise();
     }
 
