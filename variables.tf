@@ -58,7 +58,7 @@ variable src_prefix {
 }
 
 variable tags {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "Map of tags to apply to resources"
 }
